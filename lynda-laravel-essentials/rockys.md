@@ -51,6 +51,7 @@ One-to-many relationships
 Many-to-Many relationships
 
 Lazy-loading relationships
+It loads when it needs to, which can cause a problem for independant querying.
 
 Eager Loading
 
