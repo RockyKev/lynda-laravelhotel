@@ -62,6 +62,55 @@ Create, Read, Update, Delete.
 
 ```
 
+### Inserting into the database
+
+```
+    $id = DB::table('bookings')->insertGetId([
+        'room_id' => $request->input('room_id'),
+        'start' => $request->input('start'),
+        'end' => $request->input('end'),
+        'is_reservation' => $request->input('is_reservation', false),
+        'is_paid' => $request->input('is_paid', false),
+        'notes' => $request->input('notes')
+    ]);
+
+    DB::table('bookings_users')->insert([
+        'booking_id' => $id,
+        'user_id' => $request->input('user_id'),
+    ]);
+```
+
+Is akin to:
+
+```
+    $booking = Booking::create($request->input());
+
+    DB::table('bookings_users')->insert([
+        'booking_id' => $booking->id,    //CHANGE THIS TOO
+        'user_id' => $request->input('user_id'),
+    ]);
+```
+
+This is called a MASS ASSIGNMENT.
+This method permits anyone to blindly send anything to the database. So you'll have to modify the Booking Model as well.
+
+In Booking.php:
+
+```
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Booking extends Model
+{
+    protected $fillable = [
+        'room_id', 'start', 'end', 'is_reservation', 'is_paid', 'notes'
+    ];
+}
+```
+
 ### Doing SQL clauses
 
 ```
