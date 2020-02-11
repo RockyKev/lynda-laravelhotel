@@ -44,13 +44,13 @@ bookings/
 
 ### Eloquent Types
 
-One-to-one relatins
+One-to-one relationships
 
-One-to-many
+One-to-many relationships
 
-Many-to-Many
+Many-to-Many relationships
 
-Lazy-loading
+Lazy-loading relationships
 
 Eager Loading
 

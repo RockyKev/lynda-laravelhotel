@@ -11,4 +11,14 @@ class Booking extends Model
     protected $fillable = [
         'room_id', 'start', 'end', 'is_reservation', 'is_paid', 'notes'
     ];
+
+    public function room()
+    {
+        return $this->belongsTo('App\Room');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'bookings_users', 'booking_id', 'user_id')->withTimeStamps();
+    }
 }
