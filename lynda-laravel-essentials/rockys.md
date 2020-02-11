@@ -31,6 +31,14 @@ php artisan make:controller BookingController --resource --model=Booking
 ```
 
 4. Create the VIEW
+   After creating the controllers, you can then create the blades manually, or via a folder.
+
+```
+bookings/
+    index.blade.php
+    show.blade.php
+
+```
 
 ## Random things to know
 
@@ -46,6 +54,14 @@ DB::table(xx):
 Options can be called
 CRUD or BREAD
 Create, Read, Update, Delete.
+
+### Null Start operator
+
+```
+($booking->start ?? '')
+```
+
+This is saying.... if the first value exists, show that. Otherwise, show the second value.
 
 ### pluck
 
