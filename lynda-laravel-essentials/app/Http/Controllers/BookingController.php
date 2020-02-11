@@ -47,12 +47,11 @@ class BookingController extends Controller
     public function store(Request $request)
     {
 
+
         $booking = Booking::create($request->input());
 
-        DB::table('bookings_users')->insert([
-            'booking_id' => $booking->id,
-            'user_id' => $request->input('user_id'),
-        ]);
+        $booking->users()->attach($request->input('user_id'));
+        // $user = $booking->users()->create(['name' => 'test']);
 
         return redirect()->action('BookingController@index');
     }
@@ -102,11 +101,7 @@ class BookingController extends Controller
         $booking->fill($request->input());
         $booking->save();
 
-        DB::table('bookings_users')
-            ->where('booking_id', $booking->id)
-            ->update([
-                'user_id' => $request->input('user_id'),
-            ]);
+        $booking->users()->sync([$request->input('user_id')]);
 
         return redirect()->action('BookingController@index');
     }
@@ -120,7 +115,8 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
 
-        DB::table('bookings_users')->where('booking_id', $booking->id)->delete();
+        $booking->users()->detach();
+
         $booking->delete();
 
         return redirect()->action('BookingController@index');
