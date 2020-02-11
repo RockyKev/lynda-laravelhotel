@@ -42,6 +42,22 @@ bookings/
 
 ## Random things to know
 
+### Eloquent Types
+
+One-to-one relatins
+
+One-to-many
+
+Many-to-Many
+
+Lazy-loading
+
+Eager Loading
+
+Saving relationships
+
+### Facades
+
 Laravel has a thing called Facades which displays data from the database.
 
 It's a set of tools
@@ -133,7 +149,7 @@ class Booking extends Model
 
 ```
 
-Then
+Then update a page to show the content.
 
 ```
 class BookingController extends Controller
