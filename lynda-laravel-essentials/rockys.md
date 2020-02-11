@@ -111,6 +111,44 @@ class Booking extends Model
 }
 ```
 
+### Soft Deletes
+
+SoftDeletes allow you to 'remove' the object but not from the databse.
+
+```
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes; //THIS
+
+class Booking extends Model
+{
+    use SoftDeletes;  //THIS
+    protected $fillable = [
+        'room_id', 'start', 'end', 'is_reservation', 'is_paid', 'notes'
+    ];
+}
+
+```
+
+Then
+
+```
+class BookingController extends Controller
+{
+    public function index()
+    {
+
+        Booking::withTrashed()->get()->dd(); //this says get the trashed, and data dump it.
+
+        $bookings = Booking::paginate(20);
+        return view('bookings.index')->with('bookings', $bookings);
+    }
+
+```
+
 ### Doing SQL clauses
 
 ```

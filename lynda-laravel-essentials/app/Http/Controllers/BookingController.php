@@ -16,11 +16,11 @@ class BookingController extends Controller
      */
     public function index()
     {
-        // \DB::table('bookings')->get()->dd();
+
+        Booking::withTrashed()->get()->dd();
 
         $bookings = Booking::paginate(20);
 
-        // $bookings = DB::table('bookings')->get();
         return view('bookings.index')->with('bookings', $bookings);
     }
 
