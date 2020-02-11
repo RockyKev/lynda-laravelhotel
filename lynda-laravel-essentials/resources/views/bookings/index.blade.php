@@ -48,4 +48,9 @@
             </td>
         </tr> @empty
         @endforelse </tbody>
-</table> @endsection
+</table>
+
+{{ $bookings->links() }}
+
+
+@endsection

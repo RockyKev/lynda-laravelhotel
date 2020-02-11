@@ -55,10 +55,72 @@ Options can be called
 CRUD or BREAD
 Create, Read, Update, Delete.
 
+### To quickly generate something from the DB
+
+```
+        // $rooms = DB::table('rooms')->get();
+
+```
+
+### Doing SQL clauses
+
+```
+    $rooms = Room::where('room_type_id', '!=', $roomType)->get();
+```
+
+It's akin to
+
+```
+SELECT * FROM 'Room' WHERE 'room_type_id' NOT EQUAL '$roomType';
+```
+
+### To get the params
+
+```
+    //this is to take params in the url .com/rooms?id=2
+    if ($request->query('id') !== null) {
+        $rooms = $rooms->where('room_type_id', $request->query('id'));
+    }
+
+```
+
+### Want to get the database for cleaner code?
+
+```
+
+    use App\Room;
+
+    function name() {
+
+        <!-- $rooms = DB::table('rooms')->get(); -->
+        $rooms = Room::get();
+
+    }
+
+```
+
+### To quickly test if a page returns something
+
+```
+
+// To return test data -- return response('A listing of rooms', 200);
+
+```
+
+### building factories
+
+```
+
+php artisan make:model --factory Room
+
+```
+
 ### Null Start operator
 
 ```
-($booking->start ?? '')
+
+(\$booking->start ?? '')
+
 ```
 
 This is saying.... if the first value exists, show that. Otherwise, show the second value.
@@ -77,11 +139,13 @@ Laravel's object/relationship mapper.
 This is in the BookingController
 
 ```
+
     public function index()
     {
         \DB::table('bookings')->get()->dd();
 
     }
+
 ```
 
 dd() = laravel's var_dump and die.
@@ -91,6 +155,7 @@ dd() = laravel's var_dump and die.
 THIS
 
 ```
+
 Route::get('/bookings', 'BookingController@index');
 Route::get('/bookings/create', 'BookingController@create');
 Route::post('/bookings', 'BookingController@store');
@@ -98,11 +163,13 @@ Route::get('/bookings/{booking}', 'BookingController@show');
 Route::get('/bookings/{booking}/edit', 'BookingController@edit');
 Route::put('/bookings/{booking}', 'BookingController@update');
 Route::delete('/bookings/{booking}', 'BookingController@destroy');
+
 ```
 
 Is the same as
 
 ```
+
 Route::resource('bookings', 'BookingController');
 
 ```
@@ -112,9 +179,15 @@ Route::resource('bookings', 'BookingController');
 Both are the same.
 
 ```
+
     //option 1
     return view('rooms.index', ['rooms' => $rooms]);
 
     //option 2
     return view('bookings.index')->with('bookings', $bookings);
+
+```
+
+```
+
 ```

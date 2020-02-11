@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Room;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,18 +15,15 @@ class ShowRoomsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, $roomType = null)
     {
-        // return response('A listing of rooms', 200);
 
-        $rooms = DB::table('rooms')->get();
-
-        //this is to take params in the url .com/rooms?id=2
-        if ($request->query('id') !== null) {
-            $rooms = $rooms->where('room_type_id', $request->query('id'));
+        if (isset($roomType)) {
+            $rooms = Room::where('room_type_id', '!=', $roomType)->get();
+        } else {
+            $rooms = Room::get();
         }
 
-        // return response()->json($rooms);
         return view('rooms.index', ['rooms' => $rooms]);
     }
 }
