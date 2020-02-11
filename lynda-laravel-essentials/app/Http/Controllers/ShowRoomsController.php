@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ShowRoomsController extends Controller
 {
@@ -14,6 +15,15 @@ class ShowRoomsController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return response('A listing of rooms', 200);
+        // return response('A listing of rooms', 200);
+
+        $rooms = DB::table('rooms')->get();
+
+        //this is to take params in the url .com/rooms?id=2
+        if ($request->query('id') !== null) {
+            $rooms = $rooms->where('room_type_id', $request->query('id'));
+        }
+
+        return response()->json($rooms);
     }
 }

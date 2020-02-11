@@ -26,3 +26,7 @@ php artisan db:seed
 ```
 php artisan make:controller ShowRoomsController --invokable
 ```
+
+## Random things to know
+
+Laravel has a thing called Facades which displays data from the database.
