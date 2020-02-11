@@ -19,3 +19,10 @@ php artisan make:seeder HotelSeeder
 php artisan db:seed
 
 ```
+
+3. Create a controller
+   Create a single action controller that's 'invokable'
+
+```
+php artisan make:controller ShowRoomsController --invokable
+```
